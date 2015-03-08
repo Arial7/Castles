@@ -15,6 +15,7 @@ Icon::Icon(float x, float y, float width, float height, GLuint tex, short id) {
 	setWidth(width);
 	setHeight(height);
 	setTexture(tex);
+	text = iconText;
 	ID = id;
 }
 

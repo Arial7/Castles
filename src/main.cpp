@@ -15,6 +15,7 @@
 #include "mainTower.h"
 #include "errorHandler.h"
 #include "cleanup.h"
+#include "textures.h"
 
 //the size of the window, defaulted to HD, which should be the minimum size of a monitor nowadays
 const int WINDOW_WIDTH(1280);
@@ -37,6 +38,7 @@ MainTower* mainTower;
 ErrorHandler errorHandler;
 Renderer renderer(WINDOW_HEIGHT);
 Loader loader;
+Textures* textures;
 HUD* hud;
 
 //function prototypes
@@ -54,6 +56,8 @@ GLuint charTex;
 GLuint icon_hammer;
 GLuint building_mainTower;
 GLuint icon_health;
+GLuint icon_play;
+GLuint icon_pause;
 
 int main(int argc, char *argv[]){
 	//This call will initialize SDL and OpenGL
@@ -111,32 +115,31 @@ short initSDL() {
 }
 
 void loadup() {
-	//load some textures and then create some objects
-	building_mainTower = loader.loadTexture("building_mainTower.png");
-	icon_hammer = loader.loadTexture("icon_hammer.png");
-	mainTower = new MainTower(1024, 256, 100, building_mainTower);
+	//load all the textures
+	textures = new Textures(&loader);
+	textures->loadTextures();
 
-	icon_health = loader.loadTexture("icon_health.png");
+	//create some objects
+	mainTower = new MainTower(1024, 256, 100, textures->building_mainTower);
 
-	charTex = loader.loadTexture("character.png");
-	characters.emplace_back(new Character(-32, 32, charTex));
-	characters.emplace_back(new Character(96, 0, charTex));
-	characters.emplace_back(new Character(128, 64, charTex));
-	characters.emplace_back(new Character(0, 128, charTex));
-	characters.emplace_back(new Character(-32, 64, charTex));
-	characters.emplace_back(new Character(0, -32, charTex));
-	characters.emplace_back(new Character(-32, 64, charTex));
-	characters.emplace_back(new Character(0, 64, charTex));
-	characters.emplace_back(new Character(32, 64, charTex));
-	characters.emplace_back(new Character(64, 64, charTex));
+	characters.emplace_back(new Character(-32, 32, textures->character_default));
+	characters.emplace_back(new Character(96, 0, textures->character_default));
+	characters.emplace_back(new Character(128, 64, textures->character_default));
+	characters.emplace_back(new Character(0, 128, textures->character_default));
+	characters.emplace_back(new Character(-32, 64, textures->character_default));
+	characters.emplace_back(new Character(0, -32, textures->character_default));
+	characters.emplace_back(new Character(-32, 64, textures->character_default));
+	characters.emplace_back(new Character(0, 64, textures->character_default));
+	characters.emplace_back(new Character(32, 64, textures->character_default));
+	characters.emplace_back(new Character(64, 64, textures->character_default));
 
 
 	//TEMP: set the characters destination manually
 	for(Character* character : characters) {
 		character->moveTo(mainTower->getX(), mainTower->getY() + mainTower->getHeight());
 	}
-
-	hud = new HUD(icon_health);
+	//Create The hud
+	hud = new HUD(textures);
 	hud->setHealth(mainTower->getHealth());
 }
 
@@ -197,8 +200,10 @@ void getInput(){
 	if(currentKeyStates[SDL_SCANCODE_ESCAPE]){
 		quit = true;
 	}
-	if(currentKeyStates[SDL_SCANCODE_P])
+	if(currentKeyStates[SDL_SCANCODE_P]) {
 		paused = !paused;
+		hud->changePlayStatus();
+	}
 	//TODO: improve the following algorithms
 
 
@@ -249,7 +254,9 @@ void cleanUp(){
 	delete mainTower;
 	delete hud;
 
-	loader.deleteTexture(charTex);
+	textures->deleteTextures();
+	delete textures;
+
 	cleanup(window);
 }
 

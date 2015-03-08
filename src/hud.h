@@ -4,16 +4,22 @@
 #include <vector>
 #include "gameObject.h"
 #include "icon.h"
+#include "textures.h"
 
 class HUD {
 	private:
+		Textures* textures;
+		Icon* getIcon(short ID);
 		std::vector <Icon*> icons;
+		
 		short healthIconID = 0;
 		short playPauseIconID = 1;
 		int health;
+		bool paused = false;
 	public:
-		HUD (GLuint icon_health, GLuint icon_play, GLuint icon_pause);
+		HUD (Textures* textures);
 		void setHealth (int health);
+		void changePlayStatus();
 		std::vector <Icon*> getIcons(void);
 
 };

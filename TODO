@@ -1,0 +1,21 @@
+HIGH PRIORITY:
+
+-Implement more game mechanics:
+	-Actual defense towers
+	-Walls (And threrefore a pathfinding algorithm)
+	-Money / Coins
+-Make keyboard input better
+-Create a camera
+-Make multiple loadable levels
+
+MEDIUM PRIORITY:
+
+-Even more game mechanics:
+	-upgradable things
+	-powerups
+	-mines(?)
+	
+
+LOW PRIORITY:
+
+-make the damn graphics moar awesome! (This will take a really, really long time)

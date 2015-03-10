@@ -1,3 +1,8 @@
+/*
+ * Author: Pascal Riesinger
+ * Description: This is the class for the main tower, all the enemys are going to attack
+ */
+
 #include "mainTower.h"
 #include "building.h"
 

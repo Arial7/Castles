@@ -1,3 +1,9 @@
+/*
+ * Author: Pascal Riesinger
+ * Description: This is the root class for all the objects in the game. It provides basic functionality such as getters and setters for
+ * 		the coordinates and dimensions.
+ */
+
 #include "gameObject.h"
 
 GameObject::GameObject(){
@@ -7,11 +13,11 @@ GameObject::GameObject(){
 	height = 32;
 }
 
-GameObject::GameObject(float px, float py, float pwidth, float pheight){
-	x = px;
-	y = py;
-	width = pwidth;
-	height = pheight;
+GameObject::GameObject(float x, float y, float width, float height){
+	this->x = x;
+	this->y = y;
+	this->width = width;
+	this->height = height;
 }
 
 
@@ -35,29 +41,29 @@ GLuint GameObject::getTexture() {
 	return texture;
 }
 
-void GameObject::setX(float newx){
-	x = newx;
+void GameObject::setX(float x){
+	this->x = x;
 }
 
-void GameObject::setY(float newy){
-	y = newy;
+void GameObject::setY(float y){
+	this->y = y;
 }
 
-void GameObject::setWidth(float newwidth){
-	width = newwidth;
+void GameObject::setWidth(float width){
+	this->width = width;
 }
 
-void GameObject::setHeight(float newheight){
-	height = newheight;
+void GameObject::setHeight(float height){
+	this->height = height;
 }
 
-void GameObject::setPosition(float newx, float newy){
-	x = newx;
-	y = newy;
+void GameObject::setPosition(float x, float y){
+	this->x = x;
+	this->y = y;
 }
 
-void GameObject::setTexture(GLuint tex) {
-	texture = tex;
+void GameObject::setTexture(GLuint texture) {
+	this->texture = texture;
 }
 
 bool GameObject::isPointInside(float x, float y) {

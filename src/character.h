@@ -13,9 +13,9 @@ class Character : public GameObject{
     private:
     	static float movementSpeed;
         float targetX;
-   		float targetY;
-   		float distanceX;
-		float distanceY;
+   	float targetY;
+   	float distanceX;
+	float distanceY;
 };
 
 #endif

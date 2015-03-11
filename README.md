@@ -10,7 +10,8 @@ But feel free to clone the repo and send me some nice pull requests!
 No problem! Just download the repo and run 
 ```shell
 make all
-``` to compile. You will get an executable that's called castles. Then just run it (I myslef couldn't get it to run by double-clicking, I had to run it with the shell). For now it doesn't create a menu entry.
+```
+to compile. You will get an executable that's called castles. Then just run it (I myslef couldn't get it to run by double-clicking, I had to run it with the shell). For now it doesn't create a menu entry.
 Check the makefile for some other cool make commands, such as compile only, link only, etc...                                         
 
 ##What about the dependencies?

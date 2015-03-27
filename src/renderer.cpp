@@ -15,7 +15,7 @@ Renderer::Renderer(float wHeight) {
 	std::string fontPath("res/VCR_OSD_MONO.ttf");
     font = new FTPixmapFont(fontPath.c_str());
 	if(font->Error())
-		std::cerr << "[RENDERER][WARN]Could not load font " << fontpath << std::endl;
+		std::cerr << "[RENDERER][WARN]Could not load font " << fontPath << std::endl;
 	font->FaceSize(20);
 	//this will be used for the correct font placement later
 	windowHeight = wHeight;

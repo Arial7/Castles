@@ -77,7 +77,7 @@ int main(int argc, char *argv[]){
 short initSDL() {
 
 	//Initailize the SDL_VIDEO subsystem, audio will come later
-	SDL_Init(SDL_INIT_VIDEO);
+	SDL_Init(SDL_INIT_EVERYTHING);
 
 	//We need OpenGL 2.1
 	SDL_GL_SetAttribute(SDL_GL_CONTEXT_MAJOR_VERSION, 2);
@@ -120,7 +120,7 @@ void loadup() {
 	textures->loadTextures();
 
 	//create some objects
-	mainTower = new MainTower(1024, 256, 100, textures->building_mainTower);
+	/*mainTower = new MainTower(1024, 256, 100, textures->building_mainTower);
 
 	characters.emplace_back(new Character(-32, 32, textures->character_default));
 	characters.emplace_back(new Character(96, 0, textures->character_default));
@@ -138,9 +138,10 @@ void loadup() {
 	for(Character* character : characters) {
 		character->moveTo(mainTower->getX(), mainTower->getY() + mainTower->getHeight());
 	}
-	//Create The hud
+*/	//Create The hud
 	hud = new HUD(textures);
-	hud->setHealth(mainTower->getHealth());
+	//hud->setHealth(mainTower->getHealth());
+
 }
 
 void gameloop(){
@@ -187,7 +188,7 @@ void update(){
 			hud->setHealth(mainTower->getHealth());
 			int positionInVector = std::find(characters.begin(), characters.end(), character) - characters.begin();
 			characters.erase(characters.begin() + positionInVector);
-			delete character;
+			//delete character;
 		}
 	}
 

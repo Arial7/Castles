@@ -1,9 +1,7 @@
 #include "archerTower.h"
 
-void ArcherTower::update (std::vector <Character*> characters) {
-	for (Character* character : characters) {
-		if (
-	}
+ArcherTower::ArcherTower() {
+	setRadius(5);
+	setDamage(10);
+	setSpeed(1);
 }
-
-

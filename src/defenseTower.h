@@ -1,10 +1,10 @@
-#ifndef ARCHERTOWER_H
-#define ARCHERTOWER_H
+#ifndef DEFENSETOWER_H
+#define DEFENSETOWER_H
 
 #include <vector>
 #include "building.h"
 #include "character.h"
-class ArcherTower : public Building {
+class DefenseTower : public Building {
 	public:
 		void update(std::vector <Character*> characters);
 	private:

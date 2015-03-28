@@ -16,10 +16,16 @@ class Character : public GameObject{
     private:
     	static float movementSpeed;
         float targetX;
+<<<<<<< HEAD
    		float targetY;
    		float distanceX;
 		float distanceY;
 		float health;
+=======
+   	float targetY;
+   	float distanceX;
+	float distanceY;
+>>>>>>> 7154fdc3b8b2ea82791939ea437a376222792298
 };
 
 #endif

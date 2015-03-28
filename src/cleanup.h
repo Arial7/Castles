@@ -1,3 +1,10 @@
+/*
+ * Author: ?
+ * Edited by Pascal Riesinger
+ * Description: This class is used to easily cleanup every SDL object, such as SDL_Window.
+ * 		Just call cleanup(SDL_OBJECT) and it will be properly destroyed.
+ */
+
 #ifndef CLEANUP_H
 #define CLEANUP_H
 

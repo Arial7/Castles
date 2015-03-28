@@ -1,3 +1,10 @@
+/*
+ * Author: Pascal Riesinger
+ * Description: This class should be used as an errorHandler class for SDL and OpenGL errors
+ */
+
+//TODO: Either delete this class or find a way to use it more often, because for now it's not used quite that much
+
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_opengl.h>
 #include <GL/glu.h>

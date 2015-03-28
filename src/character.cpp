@@ -10,12 +10,13 @@
 float Character::movementSpeed = 2.0f;
 
 
-Character::Character(float px, float py, GLuint tex) {
+Character::Character(float px, float py, GLuint tex, float health) {
     setX(px);
     setY(py);
     setWidth(32);
     setHeight(64);
     setTexture(tex);
+    this->health = health;
     targetX = getX();
     targetY = getY();
     distanceX = 0;
@@ -55,4 +56,17 @@ bool Character::hasReachedDestiny() {
 	if (getX() == targetX && getY() == targetY)
 		return true;
 	return false;
+}
+
+bool Character::isInRadius(float x, float y, float radius) {
+	//TODO: implement checking algorithm
+	return true;
+}
+
+void Character::damage(float dmg) {
+	this->health -= dmg;
+}
+
+bool Character::isDead() {
+	return (this->health <= 0);
 }

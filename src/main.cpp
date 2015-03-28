@@ -12,6 +12,7 @@
 #include "gameObject.h"
 #include "character.h"
 #include "building.h"
+#include "defenseTower.h"
 #include "mainTower.h"
 #include "errorHandler.h"
 #include "cleanup.h"
@@ -31,7 +32,8 @@ SDL_Window *window(nullptr);
 
 //all the vectors holding the game objects
 std::vector <Character*> characters;
-//std::vector <Building*> buildings;
+std::vector <DefenseTower*> towers;
+
 MainTower* mainTower;
 
 //important objects, such as the errorHandler and the renderer
@@ -122,16 +124,20 @@ void loadup() {
 	//create some objects
 	mainTower = new MainTower(1024, 256, 100, textures->building_mainTower);
 
-	characters.emplace_back(new Character(-32, 32, textures->character_default));
-	characters.emplace_back(new Character(96, 0, textures->character_default));
-	characters.emplace_back(new Character(128, 64, textures->character_default));
-	characters.emplace_back(new Character(0, 128, textures->character_default));
-	characters.emplace_back(new Character(-32, 64, textures->character_default));
-	characters.emplace_back(new Character(0, -32, textures->character_default));
-	characters.emplace_back(new Character(-32, 64, textures->character_default));
-	characters.emplace_back(new Character(0, 64, textures->character_default));
-	characters.emplace_back(new Character(32, 64, textures->character_default));
-	characters.emplace_back(new Character(64, 64, textures->character_default));
+
+	towers.emplace_back(new DefenseTower(512, 200, 10, 1, 5));
+	
+
+	characters.emplace_back(new Character(-32, 32, textures->character_default, 10));
+	characters.emplace_back(new Character(96, 0, textures->character_default, 10));
+	characters.emplace_back(new Character(128, 64, textures->character_default, 10));
+	characters.emplace_back(new Character(0, 128, textures->character_default, 10));
+	characters.emplace_back(new Character(-32, 64, textures->character_default, 10));
+	characters.emplace_back(new Character(0, -32, textures->character_default, 10));
+	characters.emplace_back(new Character(-32, 64, textures->character_default, 10));
+	characters.emplace_back(new Character(0, 64, textures->character_default, 10));
+	characters.emplace_back(new Character(32, 64, textures->character_default, 10));
+	characters.emplace_back(new Character(64, 64, textures->character_default, 10));
 
 
 	//TEMP: set the characters destination manually
@@ -190,10 +196,24 @@ void update(){
 			delete character;
 		}
 	}
+	
+	for (DefenseTower* tower : towers) {
+		tower->update(characters);
+	}
+	
+	for (Character* c : characters) {
+		if (c->isDead()) {
+			int positionInVector = std::find(characters.begin(), characters.end(), c) - characters.begin();
+			characters.erase(characters.begin() + positionInVector);
+			delete c;
+		}
+	}
 
 }
 
 void getInput(){
+	//TODO: improve the key handling (i.e. implement event based handling)
+	
     int mouseX, mouseY;
 	const Uint8* currentKeyStates = SDL_GetKeyboardState(nullptr);
 
@@ -204,8 +224,6 @@ void getInput(){
 		paused = !paused;
 		hud->changePlayStatus();
 	}
-	//TODO: improve the following algorithms
-
 
 	if(SDL_GetMouseState(&mouseX, &mouseY) & SDL_BUTTON(SDL_BUTTON_RIGHT)){
 
@@ -249,6 +267,10 @@ bool initGL(){
 void cleanUp(){
 	for(Character* charptr : characters){
 		delete charptr;
+	}
+	
+	for(DefenseTower* tower : towers) {
+		delete tower;
 	}
 
 	delete mainTower;

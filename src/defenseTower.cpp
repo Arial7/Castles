@@ -1,5 +1,4 @@
 #include "defenseTower.h"
-<<<<<<< HEAD
 #include <iostream>
 
 DefenseTower::DefenseTower(float x, float y, float damage, float speed, float range) {
@@ -19,11 +18,4 @@ void DefenseTower::update(std::vector <Character*> characters) {
 		}
 	}
 }
-=======
 
-void DefenseTower::update (std::vector <Character*> characters) {
-	
-}
-
-
->>>>>>> 7154fdc3b8b2ea82791939ea437a376222792298

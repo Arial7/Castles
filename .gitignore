@@ -1,1 +1,6 @@
+#the binary is architecture-dependend
 game
+#temp files
+*~
+#again, binaries are architecture-dependend
+obj/*

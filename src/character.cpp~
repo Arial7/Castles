@@ -26,8 +26,11 @@ Character::Character(float px, float py, GLuint tex, float health) {
     setWidth(32);
     setHeight(64);
     setTexture(tex);
+<<<<<<< HEAD
     this->health = health;
+=======
 	//Set the default target to none, so the character won't move
+>>>>>>> 7154fdc3b8b2ea82791939ea437a376222792298
     targetX = getX();
     targetY = getY();
     distanceX = 0;

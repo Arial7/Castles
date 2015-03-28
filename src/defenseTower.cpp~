@@ -1,5 +1,5 @@
 #include "defenseTower.h"
-//#include <iostream>
+#include <iostream>
 
 DefenseTower::DefenseTower(float x, float y, float damage, float speed, float range) {
 	setX(x);
@@ -13,9 +13,9 @@ void DefenseTower::update(std::vector <Character*> characters) {
 	for (Character* c : characters) {
 		if (c->isInRadius(getX(), getY(), this->range)) {
 			c->damage(this->damage);
-//			std::cout << "[DEFENSETOWER][INFO]Destroyed Character" << std::endl;
+			std::cout << "[DEFENSETOWER][INFO]Destroyed Character" << std::endl;
 			return;
 		}
 	}
 }
-
+}

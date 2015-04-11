@@ -10,13 +10,10 @@
 #include "renderer.h"
 #include "loader.h"
 #include "gameObject.h"
-#include "character.h"
-#include "building.h"
-#include "defenseTower.h"
-#include "mainTower.h"
 #include "errorHandler.h"
 #include "cleanup.h"
 #include "textures.h"
+#include "character.h"
 
 //the size of the window, defaulted to HD, which should be the minimum size of a monitor nowadays
 const int WINDOW_WIDTH(1280);
@@ -32,15 +29,11 @@ SDL_Window *window(nullptr);
 
 //all the vectors holding the game objects
 std::vector <Character*> characters;
-std::vector <DefenseTower*> towers;
 
-MainTower* mainTower;
 
 //important objects, such as the errorHandler and the renderer
 ErrorHandler errorHandler;
 Renderer renderer(WINDOW_HEIGHT);
-Loader loader;
-Textures* textures;
 HUD* hud;
 
 //function prototypes
@@ -67,9 +60,9 @@ int main(int argc, char *argv[]){
 	if(initSDLReturn != 0) return initSDLReturn;
 	//Load everything
 	loadup();
-	/*Das gameloop starten*/
+	//start the gameloop
 	gameloop();
-	/*Wenn das gameloop beendet wurde, alles aufräumen und dann das Programm beenden*/
+	//if the gameloop finished (the game has been exited), do some cleanup and quit
 	cleanUp();
 
 	SDL_Quit();
@@ -118,35 +111,16 @@ short initSDL() {
 
 void loadup() {
 	//load all the textures
-	textures = new Textures(&loader);
-	textures->loadTextures();
+	Textures::loadTextures();
 
 	//create some objects
-	mainTower = new MainTower(1024, 256, 100, textures->building_mainTower);
-
-
-	towers.emplace_back(new DefenseTower(512, 200, 10, 1, 5));
+	
 	
 
-	characters.emplace_back(new Character(-32, 32, textures->character_default, 10));
-	characters.emplace_back(new Character(96, 0, textures->character_default, 10));
-	characters.emplace_back(new Character(128, 64, textures->character_default, 10));
-	characters.emplace_back(new Character(0, 128, textures->character_default, 10));
-	characters.emplace_back(new Character(-32, 64, textures->character_default, 10));
-	characters.emplace_back(new Character(0, -32, textures->character_default, 10));
-	characters.emplace_back(new Character(-32, 64, textures->character_default, 10));
-	characters.emplace_back(new Character(0, 64, textures->character_default, 10));
-	characters.emplace_back(new Character(32, 64, textures->character_default, 10));
-	characters.emplace_back(new Character(64, 64, textures->character_default, 10));
 
-
-	//TEMP: set the characters destination manually
-	for(Character* character : characters) {
-		character->moveTo(mainTower->getX(), mainTower->getY() + mainTower->getHeight());
-	}
 	//Create The hud
-	hud = new HUD(textures);
-	hud->setHealth(mainTower->getHealth());
+	hud = new HUD();
+	hud->setHealth(9999);
 }
 
 void gameloop(){
@@ -174,7 +148,6 @@ void render(){
 
 	//render all the game objects
 
-	renderer.renderObject(mainTower);
 
 	for(Character* ch : characters){
 	    renderer.renderCharacter(ch);
@@ -189,17 +162,13 @@ void update(){
 	for (Character* character : characters){
 		character->update();
 		if (character->hasReachedDestiny()){
-			mainTower->damage(10);
-			hud->setHealth(mainTower->getHealth());
+			hud->setHealth(9999);
 			int positionInVector = std::find(characters.begin(), characters.end(), character) - characters.begin();
 			characters.erase(characters.begin() + positionInVector);
 			delete character;
 		}
 	}
 	
-	for (DefenseTower* tower : towers) {
-		tower->update(characters);
-	}
 	
 	for (Character* c : characters) {
 		if (c->isDead()) {
@@ -269,15 +238,10 @@ void cleanUp(){
 		delete charptr;
 	}
 	
-	for(DefenseTower* tower : towers) {
-		delete tower;
-	}
-
-	delete mainTower;
+	
 	delete hud;
 
-	textures->deleteTextures();
-	delete textures;
+	Textures::deleteTextures();
 
 	cleanup(window);
 }

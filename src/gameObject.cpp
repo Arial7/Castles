@@ -6,27 +6,33 @@
 
 #include "gameObject.h"
 
+
+//TODO:implement the new point thingy
+
 GameObject::GameObject(){
-	x = 0;
-	y = 0;
+	position.setCoordinates(0, 0);
 	width = 32;
 	height = 32;
 }
 
-GameObject::GameObject(float x, float y, float width, float height){
-	this->x = x;
-	this->y = y;
+GameObject::GameObject(Point position, float width, float height){
+	this->position = position;
 	this->width = width;
 	this->height = height;
 }
 
 
-float GameObject::getX(){
-	return x;
+/*float GameObject::getX(){
+	return position.getX();
 }
 
 float GameObject::getY(){
-	return y;
+	return position.getY();
+}
+*/
+
+Point GameObject::getPosition(){
+	return position;
 }
 
 float GameObject::getWidth(){
@@ -42,11 +48,11 @@ GLuint GameObject::getTexture() {
 }
 
 void GameObject::setX(float x){
-	this->x = x;
+	position.setX(x);
 }
 
 void GameObject::setY(float y){
-	this->y = y;
+	position.setY(y);
 }
 
 void GameObject::setWidth(float width){
@@ -57,9 +63,8 @@ void GameObject::setHeight(float height){
 	this->height = height;
 }
 
-void GameObject::setPosition(float x, float y){
-	this->x = x;
-	this->y = y;
+void GameObject::setPosition(Point position){
+	this->position = position;
 }
 
 void GameObject::setTexture(GLuint texture) {
@@ -67,7 +72,7 @@ void GameObject::setTexture(GLuint texture) {
 }
 
 bool GameObject::isPointInside(float x, float y) {
-	if(x >= getX() && x <= getX() + getWidth() && y >= getY() && y <= getY() + getHeight())
+	if(x >= position.getX() && x <= position.getX() + getWidth() && y >= position.getY() && y <= position.getY() + getHeight())
 		return true;
 	return false;
 }

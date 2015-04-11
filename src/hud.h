@@ -8,7 +8,6 @@
 
 class HUD {
 	private:
-		Textures* textures;
 		Icon* getIcon(short ID);
 		std::vector <Icon*> icons;
 		
@@ -17,7 +16,7 @@ class HUD {
 		int health;
 		bool paused = false;
 	public:
-		HUD (Textures* textures);
+		HUD ();
 		void setHealth (int health);
 		void changePlayStatus();
 		std::vector <Icon*> getIcons(void);

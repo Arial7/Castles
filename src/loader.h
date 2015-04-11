@@ -6,8 +6,8 @@
 
 class Loader {
 	public:
-		GLuint loadTexture(std::string name);
-		void deleteTexture(GLuint tex);
+		static GLuint loadTexture(std::string name);
+		static void deleteTexture(GLuint tex);
 	private:
 		static std::string imgPath;
 };

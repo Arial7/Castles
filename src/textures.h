@@ -6,16 +6,14 @@
 
 class Textures {
 	public:
-		Textures(Loader* loader);
-		Loader* loader;
-		void loadTextures (void);
-		void deleteTextures (void);
-		GLuint icon_health;
-		GLuint icon_play;
-		GLuint icon_pause;
+		static void loadTextures (void);
+		static void deleteTextures (void);
+		static GLuint icon_health;
+		static GLuint icon_play;
+		static GLuint icon_pause;
 
-		GLuint building_mainTower;
-		GLuint character_default;
+		static GLuint building_mainTower;
+		static GLuint character_default;
 
 };
 

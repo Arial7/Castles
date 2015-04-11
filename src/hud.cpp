@@ -7,11 +7,10 @@
 #include <string>
 #include <iostream>
 
-HUD::HUD (Textures* textures) {
-	this->textures = textures;
+HUD::HUD () {
 	//Create the icons used (for now, there is the health icon and the play/pause icon)
-	icons.emplace_back(new Icon(2, 2, 32, 32, textures->icon_health, healthIconID, "0"));
-	icons.emplace_back(new Icon(1280 - 32, 2, 32, 32, textures->icon_play, playPauseIconID));
+	icons.emplace_back(new Icon(2, 2, 32, 32, Textures::icon_health, healthIconID, "0"));
+	icons.emplace_back(new Icon(1280 - 32, 2, 32, 32, Textures::icon_play, playPauseIconID));
 }
 
 void HUD::setHealth (int health) {
@@ -27,8 +26,8 @@ std::vector <Icon*> HUD::getIcons() {
 void HUD::changePlayStatus() {
 	paused = !paused;
 	//Change the icon according to the current game state
-	if (paused) getIcon(playPauseIconID)->setTexture(textures->icon_pause);
-	else getIcon(playPauseIconID)->setTexture(textures->icon_play);
+	if (paused) getIcon(playPauseIconID)->setTexture(Textures::icon_pause);
+	else getIcon(playPauseIconID)->setTexture(Textures::icon_play);
 }
 
 //Returns the icon with the given ID

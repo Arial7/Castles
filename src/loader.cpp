@@ -27,7 +27,7 @@ GLuint Loader::loadTexture(std::string name) {
 	//Load the image to an SDL_Surface
 	SDL_Surface *surface = IMG_Load(filepath.c_str());
 	if (surface == nullptr) {
-		std::cout << "[LOADER][WARN]Could not load texture: " << filepath << "  " << SDL_GetError() << std::endl;
+		std::cout << "[LOADER][WARN]Could not load texture: " << filepath << " : " << SDL_GetError() << std::endl;
 	}
 	//generate the GL texture and tweak it a bit
 	glGenTextures(1, &texture);
@@ -41,7 +41,6 @@ GLuint Loader::loadTexture(std::string name) {
 
 	//Do some cleanup
 	SDL_FreeSurface(surface);
-	delete surface;
 
 	//Bind the default "NULL" texture again, so no faulty texture rendering might appear
 	glBindTexture(GL_TEXTURE_2D, 0);
@@ -52,7 +51,7 @@ GLuint Loader::loadTexture(std::string name) {
 		std::cout << "[LOADER][WARN]Error loading image: " << std::endl << GLError << gluErrorString (GLError) << std::endl;
 	}
 	//Print some information about the loaded texture. This is mainly for debugging
-	std::cout << "[LOADER][INFO]Loaded texture: " << filepath << " and created GL texture with number: " << texture << std::endl;
+	std::cout << "[LOADER][INFO]Loaded texture: " << filepath << std::endl;
 	return texture;
 }
 

@@ -32,23 +32,11 @@ void Renderer::renderText(std::string text, float x, float y){
 void Renderer::renderObject(GameObject obj){
     glColor3f(1.0f, 1.0f, 0.5f);
     glBegin(GL_QUADS);
-        glVertex2f(obj.getX(), obj.getY());
-        glVertex2f(obj.getX() + obj.getWidth(), obj.getY());
-        glVertex2f(obj.getX() + obj.getWidth(), obj.getY() + obj.getHeight());
-        glVertex2f(obj.getX(), obj.getY() + obj.getHeight());
+        glVertex2f(obj.getPosition().getX(), obj.getPosition().getY());
+        glVertex2f(obj.getPosition().getX() + obj.getWidth(), obj.getPosition().getY());
+        glVertex2f(obj.getPosition().getX() + obj.getWidth(), obj.getPosition().getY() + obj.getHeight());
+        glVertex2f(obj.getPosition().getX(), obj.getPosition().getY() + obj.getHeight());
     glEnd();
-}
-
-void Renderer::renderObject(MainTower* obj){
-	glBindTexture(GL_TEXTURE_2D, obj->getTexture());
-	glColor4f(1.0, 1.0, 1.0, 1.0);
-	glBegin(GL_QUADS);
-	glTexCoord2i(0, 0); glVertex2f(obj->getX(), obj->getY());
-	glTexCoord2i(1, 0); glVertex2f(obj->getX() + obj->getWidth(), obj->getY());
-	glTexCoord2i(1, 1); glVertex2f(obj->getX() + obj->getWidth(), obj->getY() + obj->getHeight());
-	glTexCoord2i(0, 1); glVertex2f(obj->getX(), obj->getY() + obj->getHeight());
-	glEnd();
-	glBindTexture(GL_TEXTURE_2D, 0);
 }
 
 void Renderer::renderObject(HUD* hud){
@@ -64,15 +52,15 @@ void Renderer::renderObject(HUD* hud){
 		glBindTexture(GL_TEXTURE_2D, icon->getTexture());
 		glBegin(GL_QUADS);
 		glColor4f(1.0,1.0,1.0,1.0);
-			glTexCoord2i(0, 0); glVertex2f(icon->getX(), icon->getY());
-			glTexCoord2i(1, 0); glVertex2f(icon->getX() + icon->getWidth(), icon->getY());
-			glTexCoord2i(1, 1); glVertex2f(icon->getX() + icon->getWidth(), icon->getY() + icon->getHeight());
-			glTexCoord2i(0, 1); glVertex2f(icon->getX(), icon->getY() + icon->getHeight());
+			glTexCoord2i(0, 0); glVertex2f(icon->getPosition().getX(), icon->getPosition().getY());
+			glTexCoord2i(1, 0); glVertex2f(icon->getPosition().getX() + icon->getWidth(), icon->getPosition().getY());
+			glTexCoord2i(1, 1); glVertex2f(icon->getPosition().getX() + icon->getWidth(), icon->getPosition().getY() + icon->getHeight());
+			glTexCoord2i(0, 1); glVertex2f(icon->getPosition().getX(), icon->getPosition().getY() + icon->getHeight());
 		glEnd();
 		glBindTexture(GL_TEXTURE_2D, 0);
 		if(icon->getText() != "") {
 			//TODO: move the text location calculation to the icon iteself, because this will only need to be calculated once
-			renderText(icon->getText(), icon->getX() + icon->getWidth() + 2, icon->getY() + (icon->getHeight() / 2));
+			renderText(icon->getText(), icon->getPosition().getX() + icon->getWidth() + 2, icon->getPosition().getY() + (icon->getHeight() / 2));
 		}
 	}
 }
@@ -81,46 +69,12 @@ void Renderer::renderCharacter(Character* obj) {
 	glBindTexture(GL_TEXTURE_2D, obj->getTexture());
 	glColor4f(1.0, 1.0, 1.0, 1.0);
 	glBegin(GL_QUADS);
-	glTexCoord2i(0, 0); glVertex2f(obj->getX(), obj->getY());
-	glTexCoord2i(1, 0); glVertex2f(obj->getX() + obj->getWidth(), obj->getY());
-	glTexCoord2i(1, 1);	glVertex2f(obj->getX() + obj->getWidth(), obj->getY() + obj->getHeight());
-	glTexCoord2i(0, 1); glVertex2f(obj->getX(), obj->getY() + obj->getHeight());
+	glTexCoord2i(0, 0); glVertex2f(obj->getPosition().getX(), obj->getPosition().getY());
+	glTexCoord2i(1, 0); glVertex2f(obj->getPosition().getX() + obj->getWidth(), obj->getPosition().getY());
+	glTexCoord2i(1, 1);	glVertex2f(obj->getPosition().getX() + obj->getWidth(), obj->getPosition().getY() + obj->getHeight());
+	glTexCoord2i(0, 1); glVertex2f(obj->getPosition().getX(), obj->getPosition().getY() + obj->getHeight());
 	glEnd();
 	glBindTexture(GL_TEXTURE_2D, 0);
 }
-
-void Renderer::renderBuilding(Building* obj) {
-	glBindTexture(GL_TEXTURE_2D, obj->getTexture());
-	glColor4f(1.0, 1.0, 1.0, 1.0);
-	glBegin(GL_QUADS);
-	glTexCoord2i(0, 0);	glVertex2f(obj->getX(), obj->getY());
-	glTexCoord2i(1, 0); glVertex2f(obj->getX() + obj->getWidth(), obj->getY());
-    glTexCoord2i(1, 1); glVertex2f(obj->getX() + obj->getWidth(), obj->getY() + obj->getHeight());
-	glTexCoord2i(0, 1); glVertex2f(obj->getX(), obj->getY() + obj->getHeight());
-	glEnd();
-	glBindTexture(GL_TEXTURE_2D, 0);
-
-	/*if(obj->isSelected()) {
-		for(Icon* icon : obj->getIcons()){
-			glBindTexture(GL_TEXTURE_2D, icon->getTexture());
-			glColor4f(1.0, 1.0, 1.0, 1.0);
-			glBegin(GL_QUADS);
-			glTexCoord2i(0, 0); glVertex2f(icon->getX(), icon->getY());
-			glTexCoord2i(1, 0); glVertex2f(icon->getX() + icon->getWidth(), icon->getY());
-			glTexCoord2i(1, 1);	glVertex2f(icon->getX() + icon->getWidth(), icon->getY() + icon->getHeight());
-			glTexCoord2i(0, 1); glVertex2f(icon->getX(), icon->getY() + icon->getHeight());
-			glEnd();
-			glBindTexture(GL_TEXTURE_2D, 0);
-
-			if(icon->getText() != "") {
-				renderText(icon->getText(), icon->getX() + icon->getWidth() + 2, icon->getY() + (icon->getHeight() / 2));
-			}
-		}
-
-	}*/
-}
-
-
-
 
 

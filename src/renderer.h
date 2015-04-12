@@ -14,7 +14,7 @@
 class Renderer{
     public:
     	Renderer(float wHeight);
-        void renderObject(GameObject obj);
+        void renderObject(GameObject* obj);
         void renderObject(HUD* hud);
         void renderCharacter(Character* obj);
         void renderText(std::string text, float x, float y);

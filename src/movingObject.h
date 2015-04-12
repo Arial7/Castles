@@ -13,7 +13,7 @@ class MovingObject {
 		Point move (Point coordinates);
 	private:
 		float speed;
-		Point target;
+		Point target = Point(0,0);
 };
 
 #endif

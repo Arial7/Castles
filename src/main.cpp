@@ -14,6 +14,7 @@
 #include "cleanup.h"
 #include "textures.h"
 #include "character.h"
+#include "archerTower.h"
 
 //the size of the window, defaulted to HD, which should be the minimum size of a monitor nowadays
 const int WINDOW_WIDTH(1280);
@@ -29,7 +30,7 @@ SDL_Window *window(nullptr);
 
 //all the vectors holding the game objects
 std::vector <Character*> characters;
-
+std::vector <ArcherTower*> archerTowers;
 
 //important objects, such as the errorHandler and the renderer
 ErrorHandler errorHandler;
@@ -114,9 +115,13 @@ void loadup() {
 	Textures::loadTextures();
 
 	//create some objects
+	characters.emplace_back(new Character(100, 100, 100));
 	
-	
+	for (Character* c : characters){
+		c->setTarget(Point(200,200));
+	}
 
+	archerTowers.emplace_back(new ArcherTower(200, 200, 1));
 
 	//Create The hud
 	hud = new HUD();
@@ -152,6 +157,11 @@ void render(){
 	for(Character* ch : characters){
 	    renderer.renderCharacter(ch);
 	}
+	
+	for(ArcherTower* at : archerTowers) {
+		renderer.renderObject((GameObject*)(at));
+	}
+	
 
 	renderer.renderObject(hud);
 
@@ -167,6 +177,10 @@ void update(){
 			characters.erase(characters.begin() + positionInVector);
 			delete character;
 		}
+	}
+	
+	for (ArcherTower* at : archerTowers) {
+		at->update(characters);
 	}
 	
 	

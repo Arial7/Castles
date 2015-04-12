@@ -28,6 +28,7 @@ Character::Character(float px, float py, float health) {
     this->health = health;
     setSpeed(movementSpeed);
 	//Set the default target to none, so the character won't move
+	setTarget(Point(px, py));
 }
 
 

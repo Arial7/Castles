@@ -29,13 +29,13 @@ void Renderer::renderText(std::string text, float x, float y){
 	font->Render(text.c_str(), length, position, spacing, FTGL::RENDER_ALL);
 }
 //A general rendering method
-void Renderer::renderObject(GameObject obj){
+void Renderer::renderObject(GameObject* obj){
     glColor3f(1.0f, 1.0f, 0.5f);
     glBegin(GL_QUADS);
-        glVertex2f(obj.getPosition().getX(), obj.getPosition().getY());
-        glVertex2f(obj.getPosition().getX() + obj.getWidth(), obj.getPosition().getY());
-        glVertex2f(obj.getPosition().getX() + obj.getWidth(), obj.getPosition().getY() + obj.getHeight());
-        glVertex2f(obj.getPosition().getX(), obj.getPosition().getY() + obj.getHeight());
+        glVertex2f(obj->getPosition().getX(), obj->getPosition().getY());
+        glVertex2f(obj->getPosition().getX() + obj->getWidth(), obj->getPosition().getY());
+        glVertex2f(obj->getPosition().getX() + obj->getWidth(), obj->getPosition().getY() + obj->getHeight());
+        glVertex2f(obj->getPosition().getX(), obj->getPosition().getY() + obj->getHeight());
     glEnd();
 }
 

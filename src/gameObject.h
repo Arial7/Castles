@@ -25,7 +25,7 @@ class GameObject {
 	private:
 		GLuint texture;
 	protected:
-		Point position;
+		Point position = Point(0,0);
 		float width;
 		float height;
 };

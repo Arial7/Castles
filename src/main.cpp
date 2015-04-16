@@ -15,6 +15,7 @@
 #include "textures.h"
 #include "character.h"
 #include "archerTower.h"
+#include "time.h"
 
 //the size of the window, defaulted to HD, which should be the minimum size of a monitor nowadays
 const int WINDOW_WIDTH(1280);
@@ -47,14 +48,6 @@ void render(void);
 bool initGL(void);
 void cleanUp(void);
 
-//TEMP: texture for the characters
-GLuint charTex;
-GLuint icon_hammer;
-GLuint building_mainTower;
-GLuint icon_health;
-GLuint icon_play;
-GLuint icon_pause;
-
 int main(int argc, char *argv[]){
 	//This call will initialize SDL and OpenGL
 	short initSDLReturn = initSDL();
@@ -82,16 +75,16 @@ short initSDL() {
 	SDL_GL_SetAttribute(SDL_GL_DOUBLEBUFFER, 1);
 	//create the window
 	window = SDL_CreateWindow(WINDOW_TITLE, 0, 0, WINDOW_WIDTH, WINDOW_HEIGHT, SDL_WINDOW_OPENGL | SDL_WINDOW_SHOWN);
-	/*Falls das Erstellen gescheitert ist, wird das Programm beendet*/
+	//quit if window creation failed
 	if (window == nullptr) {
 		errorHandler.logSDLError(std::cout, "SDL_CreateWindow");
 		SDL_Quit();
 		return 1;
 	}
-	/*Erstellt den OpenGL context*/
+	//create the OpenGL context
 	SDL_GLContext context(nullptr);
 	context = SDL_GL_CreateContext(window);
-	/*Falls das Erstellen gescheitert ist, wird das Programm beendet*/
+	//quit if creation failed
 	if (context == nullptr) {
 		cleanUp();
 		errorHandler.logSDLError(std::cout, "SDL_GL_CreateContext");
@@ -99,7 +92,7 @@ short initSDL() {
 		return 1;
 	}
 
-	/*OpenGL initalisieren*/
+	//init OpenGL
 	if (!initGL()) {
 		cleanUp();
 		SDL_Quit();
@@ -126,16 +119,21 @@ void loadup() {
 	//Create The hud
 	hud = new HUD();
 	hud->setHealth(9999);
+	
+	//initialize the timing subsystem
+	Time::init();
 }
 
 void gameloop(){
-	Time::update();
+
 	SDL_Event event;
 	while (!quit) {
-		/*Alle SDL_Events abfragen und behandeln*/
+		//update the delta time
+		Time::update();
+		//get all SDL_Events and handle them
 		while (SDL_PollEvent (&event)) {
 			switch (event.type) {
-				case SDL_QUIT: //SDL_Quit = Fenster geschlossen
+				case SDL_QUIT: //SDL_Quit = close window
 					quit = true;
 				    break;
 			}
@@ -143,7 +141,7 @@ void gameloop(){
 		getInput();
 		if(!paused) update();
 		render();
-		/*Framebuffers tauschen*/
+		//swap framebuffers
 		SDL_GL_SwapWindow(window);
 	}
 }

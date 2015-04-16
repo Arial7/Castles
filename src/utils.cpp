@@ -47,7 +47,6 @@ bool Utils::squareInCircle(Point sp, float sw, float sh, Point cp, float cr){
 		return true;
 	}
 	
-	std::cout << "[UTILS][INFO]Not colliding" << std::endl;
 	
 	//if none of the beforehand checks was succesful, the two objects don't collide
 	return false;

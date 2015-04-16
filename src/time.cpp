@@ -16,7 +16,6 @@ void Time::update() {
 	currentTime = SDL_GetTicks();
 	delta = currentTime - lastTime;
 	lastTime = currentTime;
-	std::cout << delta << "\t";
 }
 
 long Time::deltaTime() {

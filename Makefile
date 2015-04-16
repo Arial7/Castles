@@ -11,13 +11,8 @@ OUTPUT_FILE = game
 
 #will compile and link all the above source files
 all: 
-	make $(OUTPUT_FILE)
-#new rules for better compiling
-$(OUTPUT_FILE): $(SRC)
-	g++ $^ -o $@ $(CFLAGS) $(LDFLAGS)
-$(OBJ): %: $(SRCDIR)%.cpp
-	g++ $< $(CFLAGS) -o $@
-
+	make compile -j4
+	make link 
 #will do the same as all and afterwards run the game
 run:
 	g++ $(SRC) -o $(OUTPUT_FILE) $(CFLAGS) $(LDFLAGS) 

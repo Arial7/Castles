@@ -1,6 +1,6 @@
 #include "time.h"
 #include <SDL2/SDL.h>
-
+#include <iostream>
 //Workaround for "undefined reference"
 static long lastTime = 0;
 static long currentTime = 0;
@@ -16,6 +16,7 @@ void Time::update() {
 	currentTime = SDL_GetTicks();
 	delta = currentTime - lastTime;
 	lastTime = currentTime;
+	std::cout << delta << "\t";
 }
 
 long Time::deltaTime() {

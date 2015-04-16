@@ -1,4 +1,5 @@
 #include "utils.h"
+#include <iostream>
 
 //TODO: cleanup the third squareInCircle check
 
@@ -45,6 +46,8 @@ bool Utils::squareInCircle(Point sp, float sw, float sh, Point cp, float cr){
 	if (csq <= xx1 + yy1 || csq <= xx2 + yy1 || csq <= xx2 + yy2 || csq <= xx1 + yy2) {
 		return true;
 	}
+	
+	std::cout << "[UTILS][INFO]Not colliding" << std::endl;
 	
 	//if none of the beforehand checks was succesful, the two objects don't collide
 	return false;

@@ -9,13 +9,16 @@ static int delay = 0;
 
 void TowerObject::update(std::vector <Character*> characters) {
 	delay += Time::deltaTime();
-	if (delay >= 1000/speed) {
+	std::cout << Time::deltaTime() << "\t";
+	std::cout << delay << std::endl;
+	if (delay >= 10/speed) {
 		delay = 0;
 		shoot(characters);
 	}
 }
 
 void TowerObject::shoot(std::vector <Character*> characters) {
+	std::cout << "[TOWEROBJECT][INFO]SHOOTING!" << std::endl;
 	for (Character* c : characters) {
 		if (Utils::squareInCircle(c->getPosition(), c->getWidth(), c->getHeight(), position, range)) {
 			c->damage(damage);

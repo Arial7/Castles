@@ -129,7 +129,7 @@ void loadup() {
 }
 
 void gameloop(){
-
+	Time::update();
 	SDL_Event event;
 	while (!quit) {
 		/*Alle SDL_Events abfragen und behandeln*/

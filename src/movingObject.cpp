@@ -1,6 +1,8 @@
 #include <math.h>
 #include <algorithm>
+#include <iostream>
 
+#include "time.h"
 #include "movingObject.h"
 
 void MovingObject::setTarget (Point p) {
@@ -26,7 +28,11 @@ Point MovingObject::move (Point coordinates) {
 		if (distanceX < 0)
 			mult = -1;
 		float d(fabs(distanceX));
-		float movingDistance = std::min(d, speed) * mult;
+		float movingDistance = speed * Time::deltaTimeSecs();
+		if (movingDistance > d)
+			movingDistance = d * mult;
+		else
+			movingDistance *= mult;
 		newCoords.setX(coordinates.getX() - movingDistance);
 	}
 	//Calculate the movement along the y axis
@@ -36,7 +42,11 @@ Point MovingObject::move (Point coordinates) {
 		if (distanceY < 0)
 			mult = -1;
 		float d(fabs(distanceY));
-		float movingDistance = std::min(d, speed) * mult;
+		float movingDistance = speed * Time::deltaTimeSecs();
+		if (movingDistance > d)
+			movingDistance = d * mult;
+		else
+			movingDistance *= mult;
 		newCoords.setY(coordinates.getY() - movingDistance);
 	}
 	

@@ -12,7 +12,7 @@ class MovingObject {
 		//Calculates the movement and returns the new coords
 		Point move (Point coordinates);
 	private:
-		float speed;
+		float speed = 1;
 		Point target = Point(0,0);
 };
 

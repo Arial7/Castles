@@ -21,3 +21,7 @@ void Time::update() {
 long Time::deltaTime() {
 	return delta;
 }
+
+float Time::deltaTimeSecs() {
+	return delta / 1000.0f;
+}

@@ -15,7 +15,7 @@
 //TODO: Rename this class to something better
 //TODO: Cleanup (imports, move some code to MovingObject)
 
-float Character::movementSpeed = 2.0f;
+float Character::movementSpeed = 50.0f;
 
 
 Character::Character(float px, float py, float health) {

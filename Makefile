@@ -1,38 +1,25 @@
-CFLAGS = -Wall -std=c++11 -O1
+CC = g++
+
+CCFLAGS = -Wall -std=c++11 -O1 -I/usr/include/freetype2
 LDFLAGS = -lSDL2 -lSDL2_image -lGL -lGLU `pkg-config --cflags --libs ftgl`
 
 SRCDIR = src/
 OBJDIR = obj/
 
 SRC = $(wildcard $(SRCDIR)*.cpp)
-OBJ = $(wildcard $(OBJDIR)*.o)
+OBJ = $(addprefix obj/,$(notdir $(SRC:.cpp=.o)))
 
-OUTPUT_FILE = game
 
-#will compile and link all the above source files
-all: 
-	make compile -j4
-	make link 
-#will do the same as all and afterwards run the game
-run:
-	g++ $(SRC) -o $(OUTPUT_FILE) $(CFLAGS) $(LDFLAGS) 
-	./game
-#will only link the .o files
-link:
-	g++ $(OBJ) -o $(OUTPUT_FILE) $(LDFLAGS)
-#will only compile the .cpp files
-compile:
-	g++ $(SRC) -c $(CFLAGS) 
-	mv *.o $(OBJDIR)
-#make a single .o file (and link it afterwards)
-%.o: $(SRCDIR)%.cpp 
-	g++ $< -c $(CFLAGS) 
-	mv *.o $(OBJDIR)
-	g++ $(OBJ) -o $(OUTPUT_FILE) $(LDFLAGS)
-#make a single .o file (and DON'T link)
-%.o-: $(SRCDIR)%.cpp
-	g++ $< -c $(CFLAGS) 		
-	mv *.o $(OBJDIR)
+
+EXECUTABLE = castles
+
+
+$(EXECUTABLE):$(OBJ)
+	$(CC) $(OBJ) -o $(EXECUTABLE) $(LDFLAGS)
+
+obj/%.o:src/%.cpp
+
+	$(CC) -c $(CCFLAGS) $< -o $@
+
 clean:
-	rm $(OBJDIR)*.o 
-	if [ -f $(OUTPUT_FILE) ]; then rm OUTPUT_FILE; fi
+	rm -f $(OBJ) $(EXECUTABLE)

@@ -1,4 +1,7 @@
 # Castles - The game
+
+*please note: this is currently not under active development, as I am working on my game engine, Glow, right now. Once Glow will be a bit more fully-featured, I will rewrite this to use Glow*
+
 ##What's that?
 Castles is my first real C++ game. It's an indie tower defense game and is in early development right now.
 
